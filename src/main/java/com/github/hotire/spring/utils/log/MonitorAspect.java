@@ -70,7 +70,6 @@ public class MonitorAspect {
         final Logger logger = monitor.level();
         stopWatch.start();
 
-        logger.log("monitor :{}", monitor);
         logger.log("Monitor Start");
         logger.log("method : {}", methodSignature.getMethod());
 
