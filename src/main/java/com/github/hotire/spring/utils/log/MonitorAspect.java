@@ -44,7 +44,14 @@ public class MonitorAspect {
             public void log(String format, Object... args) {
                 log.warn(format, args);
             }
-        };
+        },
+        ERROR {
+            @Override
+            public void log(String format, Object... args) {
+                log.error(format, args);
+            }
+        }
+        ;
     }
 
     @Around("@annotation(monitor)")
@@ -60,16 +67,16 @@ public class MonitorAspect {
     protected Object monitor(ProceedingJoinPoint joinPoint, Monitor monitor) throws Throwable {
         final MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
         final StopWatch stopWatch = new StopWatch();
-
+        final Logger logger = monitor.level();
         stopWatch.start();
 
-        log.info("monitor :{}", monitor);
-        log.info("Monitor Start");
-        log.info("method : {}", methodSignature.getMethod());
+        logger.log("monitor :{}", monitor);
+        logger.log("Monitor Start");
+        logger.log("method : {}", methodSignature.getMethod());
 
         for (Object arg : joinPoint.getArgs()) {
             if (Objects.nonNull(arg)) {
-                log.info("arg type : {} value : {}", arg.getClass().getSimpleName(), arg);
+                logger.log("arg type : {} value : {}", arg.getClass().getSimpleName(), arg);
             }
         }
 
@@ -77,9 +84,9 @@ public class MonitorAspect {
 
         stopWatch.stop();;
 
-        log.info("result : {}", result);
-        log.info("total elapsed time : {}", stopWatch.getTotalTimeSeconds());
-        log.info("Monitor End");
+        logger.log("result : {}", result);
+        logger.log("total elapsed time : {}", stopWatch.getTotalTimeSeconds());
+        logger.log("Monitor End");
 
         return result;
     }
