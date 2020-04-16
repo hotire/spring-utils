@@ -4,9 +4,20 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static org.mockito.Mockito.*;
 
 class MonitorAspectTest {
+
+
+    @Test
+    void log() {
+        // no assert
+        Arrays.stream(MonitorAspect.Level.values())
+              .forEach(level -> level.log("", ""));
+    }
+
 
     @Test
     void monitorMethod() throws Throwable {
