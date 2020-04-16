@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
 
 import java.util.Objects;
+import java.util.Optional;
 
 
 @Slf4j
@@ -64,11 +65,15 @@ public class MonitorAspect {
         return monitor(joinPoint, monitor);
     }
 
+    protected Optional<StopWatch> getStopWatch(Monitor monitor) {
+        return monitor.timer() ? Optional.of(new StopWatch()) : Optional.empty();
+    }
+
     protected Object monitor(ProceedingJoinPoint joinPoint, Monitor monitor) throws Throwable {
         final MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
-        final StopWatch stopWatch = new StopWatch();
+        final Optional<StopWatch> stopWatch = getStopWatch(monitor);
         final Logger logger = monitor.level();
-        stopWatch.start();
+        stopWatch.ifPresent(StopWatch::start);
 
         logger.log("Monitor Start");
         logger.log("method : {}", methodSignature.getMethod());
@@ -81,10 +86,11 @@ public class MonitorAspect {
 
         final Object result = joinPoint.proceed();
 
-        stopWatch.stop();;
+        stopWatch.ifPresent(StopWatch::stop);
 
         logger.log("result : {}", result);
-        logger.log("total elapsed time : {}", stopWatch.getTotalTimeSeconds());
+
+        stopWatch.ifPresent(it -> logger.log("total elapsed time : {}", it.getTotalTimeSeconds()));
         logger.log("Monitor End");
 
         return result;

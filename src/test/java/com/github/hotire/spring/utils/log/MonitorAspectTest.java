@@ -29,6 +29,7 @@ class MonitorAspectTest {
         when(proceedingJoinPoint.getSignature()).thenReturn(methodSignature);
         when(proceedingJoinPoint.getArgs()).thenReturn(new Object[]{});
         when(monitor.level()).thenReturn(MonitorAspect.Level.DEBUG);
+        when(monitor.timer()).thenReturn(false);
         monitorAspect.monitorType(proceedingJoinPoint, monitor);
 
         // then
@@ -47,6 +48,7 @@ class MonitorAspectTest {
         when(proceedingJoinPoint.getSignature()).thenReturn(methodSignature);
         when(proceedingJoinPoint.getArgs()).thenReturn(new Object[]{});
         when(monitor.level()).thenReturn(MonitorAspect.Level.DEBUG);
+        when(monitor.timer()).thenReturn(true);
         monitorAspect.monitorMethod(proceedingJoinPoint, monitor);
 
         // then
