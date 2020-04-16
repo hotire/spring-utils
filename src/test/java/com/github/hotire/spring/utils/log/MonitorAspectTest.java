@@ -3,9 +3,12 @@ package com.github.hotire.spring.utils.log;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.junit.jupiter.api.Test;
+import org.springframework.util.StopWatch;
 
 import java.util.Arrays;
+import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 class MonitorAspectTest {
@@ -53,5 +56,19 @@ class MonitorAspectTest {
 
         // then
         verify(proceedingJoinPoint, times(1)).proceed();
+    }
+
+    @Test
+    void getStopWatch() {
+        // given
+        final Monitor monitor = mock(Monitor.class);
+        final MonitorAspect monitorAspect = new MonitorAspect();
+
+        // when
+        when(monitor.timer()).thenReturn(true);
+        final Optional<StopWatch> result = monitorAspect.getStopWatch(monitor);
+
+        // then
+        assertThat(result.get()).isNotNull();
     }
 }
