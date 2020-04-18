@@ -23,6 +23,10 @@
 			<id>jcenter</id>
 			<url>https://jcenter.bintray.com/</url>
 		</repository>
+		<repository>
+			<id>hotire</id>
+			<url>http://dl.bintray.com/hotire/utils</url>
+		</repository>
 	</repositories>
 
 	<dependencies>
@@ -49,6 +53,11 @@
 					<artifactId>junit-vintage-engine</artifactId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>com.github.hotire</groupId>
+			<artifactId>rest-template-executor</artifactId>
+			<version>0.0.2</version>
 		</dependency>
 	</dependencies>
 
