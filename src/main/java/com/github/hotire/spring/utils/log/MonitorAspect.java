@@ -56,20 +56,20 @@ public class MonitorAspect {
     }
 
     @Around("@annotation(monitor)")
-    public Object monitorMethod(ProceedingJoinPoint joinPoint, Monitor monitor) throws Throwable {
+    public Object monitorMethod(final ProceedingJoinPoint joinPoint, final Monitor monitor) throws Throwable {
         return monitor(joinPoint, monitor);
     }
 
     @Around("@within(monitor)")
-    public Object monitorType(ProceedingJoinPoint joinPoint, Monitor monitor) throws Throwable {
+    public Object monitorType(final ProceedingJoinPoint joinPoint, final Monitor monitor) throws Throwable {
         return monitor(joinPoint, monitor);
     }
 
-    protected Optional<StopWatch> getStopWatch(Monitor monitor) {
+    protected Optional<StopWatch> getStopWatch(final Monitor monitor) {
         return monitor.timer() ? Optional.of(new StopWatch()) : Optional.empty();
     }
 
-    protected Object monitor(ProceedingJoinPoint joinPoint, Monitor monitor) throws Throwable {
+    protected Object monitor(final ProceedingJoinPoint joinPoint, final Monitor monitor) throws Throwable {
         final MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
         final Optional<StopWatch> stopWatch = getStopWatch(monitor);
         final Logger logger = monitor.level();
