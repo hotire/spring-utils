@@ -21,4 +21,9 @@ public class AccountService implements EntityService {
         entities.add(new Account());
         return entities;
     }
+
+    @Override
+    public Entity save(Entity entity) {
+        return entity;
+    }
 }
