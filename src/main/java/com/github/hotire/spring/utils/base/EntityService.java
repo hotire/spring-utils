@@ -5,4 +5,5 @@ import java.util.List;
 public interface EntityService {
     Entity find(final Long id);
     List<Entity> findAll();
+    Entity save(final Entity entity);
 }
