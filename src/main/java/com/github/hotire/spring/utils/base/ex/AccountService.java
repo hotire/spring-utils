@@ -12,7 +12,7 @@ public class AccountService implements EntityService {
 
     @Override
     public Entity find(final Long id) {
-        return new Account();
+        return new Account(1L);
     }
 
     @Override
