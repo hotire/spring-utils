@@ -6,4 +6,8 @@ import lombok.Getter;
 @Getter
 public class Account extends Entity {
     private String name;
+
+    public Account(Long id) {
+        super(id);
+    }
 }
