@@ -6,13 +6,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AccountService implements EntityService {
 
     @Override
-    public Entity find(final Long id) {
-        return new Account(1L);
+    public Optional<Entity> find(final Long id) {
+        return Optional.ofNullable(new Account(1L));
     }
 
     @Override

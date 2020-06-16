@@ -1,5 +1,6 @@
 package com.github.hotire.spring.utils.base;
 
+import com.github.hotire.spring.utils.exception.NotFoundEntityException;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -16,6 +17,6 @@ public abstract class EntityController<T extends Entity> {
 
     @GetMapping("/{id}")
     public Entity get(@PathVariable Long id) {
-        return getService().find(id);
+        return getService().find(id).orElseThrow(() -> NotFoundEntityException.of(id));
     }
 }

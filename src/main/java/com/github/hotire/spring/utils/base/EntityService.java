@@ -1,9 +1,10 @@
 package com.github.hotire.spring.utils.base;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface EntityService {
-    Entity find(final Long id);
+    Optional<Entity> find(final Long id);
     List<Entity> findAll();
     Entity save(final Entity entity);
 }
