@@ -18,7 +18,7 @@ public class AccountService implements EntityService {
     @Override
     public List<Entity> findAll() {
         final ArrayList<Entity> entities = new ArrayList<>();
-        entities.add(new Account());
+        entities.add(new Account(1L));
         return entities;
     }
 
